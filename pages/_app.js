@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import db from '../db.json';
 
@@ -33,7 +34,10 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
@@ -42,3 +46,8 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
+
+App.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.instanceOf(Object).isRequired,
+};
