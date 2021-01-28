@@ -46,8 +46,11 @@ export default function Home() {
           </Widget.Content>
         </Widget>
         <Widget>
+          <Widget.Header>
+            <h1>Quizes</h1>
+          </Widget.Header>
           <Widget.Content>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste numquam dicta blanditiis error ea veniam sit necessitatibus. Sit, nam provident totam voluptatum, voluptates aspernatur maxime corporis velit perferendis adipisci earum?</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
           </Widget.Content>
         </Widget>
         <Footer />
