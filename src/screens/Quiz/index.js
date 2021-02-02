@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import db from '../db.json';
 
-import QuizBackground from '../src/components/QuizBackground';
-import QuizContainer from '../src/components/QuizContainer';
-import QuizLogo from '../src/components/QuizLogo';
-import Widget from '../src/components/Widget';
-import AlternativesForm from '../src/components/AlternativesForm';
-import Button from '../src/components/Button';
-import Loader from '../src/components/Loader';
+import QuizBackground from '../../components/QuizBackground';
+import QuizContainer from '../../components/QuizContainer';
+import QuizLogo from '../../components/QuizLogo';
+import Widget from '../../components/Widget';
+import AlternativesForm from '../../components/AlternativesForm';
+import Button from '../../components/Button';
+import Loader from '../../components/Loader';
+import BackLinkArrow from '../../components/BackLinkArrow';
 
 function LoadingWidget() {
   return (
@@ -74,6 +74,7 @@ function QuestionWidget({
   return (
     <Widget>
       <Widget.Header>
+        <BackLinkArrow href="" />
         <h3>
           {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
         </h3>
@@ -142,13 +143,14 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 
-export default function QuizPage() {
+export default function QuizPage({ externalQuestions, dbExterno }) {
   const [screenState, setScreenState] = useState(screenStates.LOADING);
   const [results, setResults] = useState([]);
-  const totalQuestions = db.questions.length;
+  const totalQuestions = externalQuestions.length;
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const questionIndex = currentQuestion;
-  const question = db.questions[questionIndex];
+  const question = externalQuestions[questionIndex];
+  const bg = dbExterno;
 
   function addResult(result) {
     setResults([
@@ -173,7 +175,7 @@ export default function QuizPage() {
   }
 
   return (
-    <QuizBackground backgroundImage={db.bg}>
+    <QuizBackground backgroundImage={bg}>
       <QuizContainer>
         <QuizLogo />
 
@@ -206,4 +208,13 @@ QuestionWidget.propTypes = {
 
 ResultWidget.propTypes = {
   results: PropTypes.instanceOf(Array).isRequired,
+};
+
+QuizPage.defaultProps = {
+  dbExterno: {},
+};
+
+QuizPage.propTypes = {
+  externalQuestions: PropTypes.instanceOf(Array).isRequired,
+  dbExterno: PropTypes.instanceOf(Object),
 };

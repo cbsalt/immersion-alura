@@ -11,6 +11,7 @@ import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
 import Input from '../src/components/Input';
 import Button from '../src/components/Button';
+import Link from '../src/components/Link';
 
 export default function Home() {
   const router = useRouter();
@@ -50,7 +51,26 @@ export default function Home() {
             <h1>Quizes</h1>
           </Widget.Header>
           <Widget.Content>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <ul>
+              {db.external.map((link) => {
+                const [projectName, githubUser] = link
+                  .replace(/\//g, '')
+                  .replace('https:', '')
+                  .replace('.vercel.app', '')
+                  .split('.');
+
+                return (
+                  <li>
+                    <Widget.Topic
+                      as={Link}
+                      href={`/quiz/${projectName}___${githubUser}`}
+                    >
+                      {`${githubUser}/${projectName}`}
+                    </Widget.Topic>
+                  </li>
+                );
+              })}
+            </ul>
           </Widget.Content>
         </Widget>
         <Footer />
